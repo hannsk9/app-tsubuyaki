@@ -1,0 +1,11 @@
+<% if current_user.favoriting?(post) %>
+  <%= form_with(model: current_user.favorites.find_by(post_id: post.id), method: :delete) do |f| %>
+    <%= hidden_field_tag :post_id, post.id %>
+    <%= f.submit '解除', class: 'btn btn-outline-danger btn-sm' %>
+  <% end %>
+<% else %>
+  <%= form_with(model: current_user.favorites.build) do |f| %>
+    <%= hidden_field_tag :post_id, post.id %>
+    <%= f.submit 'いいね', class: 'btn btn-primary btn-sm' %>
+  <% end %>
+<% end %>

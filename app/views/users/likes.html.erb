@@ -1,0 +1,9 @@
+<div class='row'>
+  <aside class='col-sm-4'>
+    <%= render 'users/plofile', user: @user %>
+  </aside>
+  <div class='col-sm-8'>
+    <%= render 'users/plofile_tabs', user: @user %>
+    <%= render 'posts/posts', posts: @likes %>
+  </div>
+</div>
