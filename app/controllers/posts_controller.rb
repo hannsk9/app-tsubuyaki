@@ -4,6 +4,9 @@ class PostsController < ApplicationController
   before_action :correct_user, only: [:destroy]
   
   def show
+    @post = Post.find(params[:id])
+    @pagy, @comments = pagy(@post.comments)
+    @comment = current_user.comments.build #formのパラメータ用にCommentオブジェクトを取得
   end
   
   def create

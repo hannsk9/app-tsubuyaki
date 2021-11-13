@@ -11,10 +11,11 @@
             <p><%= post.content %></p>
           </div>
           <div class='btn-group'>
+            <%= render 'favorites/favorite_button', post: post %>
+            <%= link_to 'コメント', post_path(post), class: 'btn btn-primary btn-sm' %>
             <% if current_user == post.user %>
               <%= link_to "削除", post, method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'btn btn-danger btn-sm' %>
             <% end %>
-              <%= render 'favorites/favorite_button', post: post %>
           </div>
         </div>
       </li>

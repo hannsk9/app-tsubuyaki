@@ -1,2 +1,50 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<ul class='mt2'>
+  <li class="d-flex">
+    <img class="rounded me-2 mb-5" src="<%= gravatar_url(@post.user, { size: 64 }) %>" alt="">
+    <div>
+      <div>
+        <%= link_to @post.user.name, user_path(@post.user), class: "text-decoration-none" %> <span class="text-muted">posted at <%= @post.created_at %></span>
+      </div>
+      <div>
+        <p><%= @post.content %></p>
+      </div>
+      <div>
+        <%= render 'favorites/favorite_button', post: @post %>
+      </div>
+    </div>
+  </li>
+</ul>
+<div class='row'>
+  <div class='col-sm-6'>
+    <p>コメント一覧</p>
+    <ul class="list-unstyled mt-2">
+      <% @comments.each do |comment| %>
+        <li class="d-flex">
+          <img class="rounded me-2 mb-5" src="<%= gravatar_url(comment.user, { size: 64 }) %>" alt="">
+          <div>
+            <div>
+              <%= link_to comment.user.name, user_path(comment.user), class: "text-decoration-none" %> <span class="text-muted">posted at <%= comment.created_at %></span>
+            </div>
+            <div>
+              <p><%= comment.content %></p>
+            </div>
+            <div>
+              <% if current_user == comment.user %>
+                <%= link_to "削除", post_comment_path(@post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'btn btn-danger btn-sm' %>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <aside class='col-sm-6'>
+    <%= form_with(model:[@post, @comment], method: :post) do |f| %>
+      <div class='mb-3'>
+        <%= f.text_area :content, class: 'form-control', rows: 5 %>
+        <%= f.hidden_field :post_id, value: @post.id %>
+      </div>
+      <%= f.submit 'コメントする', class: 'btn btn-primary w-100' %>
+    <% end %>
+  </aside>
+</div>
