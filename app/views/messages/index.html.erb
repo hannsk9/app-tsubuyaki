@@ -1,0 +1,16 @@
+<ul class="list-unstyled">
+  <% @message_user_ids.each do |message_user_id| %>
+  <% message_user = User.find_by(id: message_user_id) %>
+    <li class="mb-3 d-flex">
+      <img class="rounded me-2" src="<%= gravatar_url(message_user, { size: 64 }) %>" alt="">
+      <div>
+        <div>
+          <%= message_user.name %>
+        </div>
+        <div>
+          <%= link_to 'メッセージへ', message_path(message_user) %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

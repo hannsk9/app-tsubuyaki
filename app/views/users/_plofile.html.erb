@@ -7,3 +7,6 @@
   </div>
 </div>
 <%= render 'relationships/follow_button', user: user %>
+<% unless current_user == user %>
+  <%= link_to 'メッセージを送る', message_path(user), class: 'btn btn-primary w-100' %>
+<% end %>

@@ -23,4 +23,8 @@ Rails.application.routes.draw do
     
   resources :relationships, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
+  
+  get 'messages', to: "messages#index", as: :messages_index
+  get 'messages/:partner_id', to: 'messages#show', as: :message
+  resources :messages, only: [:create, :destroy]
 end

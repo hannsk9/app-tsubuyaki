@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_132440) do
+ActiveRecord::Schema.define(version: 2021_11_14_193517) do
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "content"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 2021_11_12_132440) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_favorites_on_post_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "messages", charset: "utf8mb4", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id", null: false
+    t.bigint "partner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id"], name: "index_messages_on_partner_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "posts", charset: "utf8mb4", force: :cascade do |t|
@@ -61,6 +71,8 @@ ActiveRecord::Schema.define(version: 2021_11_12_132440) do
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "users", column: "partner_id"
   add_foreign_key "posts", "users"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "follow_id"
