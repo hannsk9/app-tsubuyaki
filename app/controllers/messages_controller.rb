@@ -14,13 +14,13 @@ class MessagesController < ApplicationController
 
   def create
     #@message = current_user.messages.build(message_params)
-    message = Message.new(content: params[:content], user_id: params[:user_id], partner_id: params[:partner_id])
-    if message.save
-      flash[:success] = 'メッセージを送信しました。'
+    @message = Message.new(content: params[:content], user_id: params[:user_id], partner_id: params[:partner_id])
+    if @message.save
       redirect_back(fallback_location: root_path)
     else
-      flash[:danger] = "メッセージの送信に失敗しました。"
-      flash[:warning] = message.errors.full_messages
+      unless @message.valid?
+        flash[:content] = @message.errors[:content]
+      end
       redirect_back(fallback_location: root_path)
     end
   end
@@ -28,7 +28,6 @@ class MessagesController < ApplicationController
   def destroy
     @message = Message.find(params[:id])
     @message.destroy
-    flash[:success] = "メッセージを削除しました。"
     redirect_back(fallback_location: root_path)
   end
   

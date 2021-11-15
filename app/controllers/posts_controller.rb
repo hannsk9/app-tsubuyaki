@@ -12,19 +12,18 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:success] = "つぶやきを投稿しました。"
       redirect_to root_url
     else
       @pagy, @posts = pagy(current_user.feed_posts.order(id: :desc))
-      flash[:danger] = "つぶやきの投稿に失敗しました。"
-      flash[:warning] = @post.errors.full_messages
+      unless @post.valid?
+        flash[:content] = @post.errors[:content]
+      end
       redirect_back(fallback_location: root_path)
     end
   end
 
   def destroy
     @post.destroy
-    flash[:success] = "つぶやきを削除しました。"
     redirect_back(fallback_location: root_path)
   end
   

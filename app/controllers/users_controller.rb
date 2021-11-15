@@ -19,11 +19,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      flash[:success] = "ユーザを登録しました。"
       redirect_to @user
     else
-      flash[:danger] = "ユーザの登録に失敗しました。"
-      flash[:warning] = @user.errors.full_messages
+      unless @user.valid?
+        flash[:name] = @user.errors[:name]
+        flash[:email] = @user.errors[:email]
+      end
       redirect_to signup_path
     end
   end

@@ -6,11 +6,13 @@
   <div class="col-sm-6 offset-sm-3">
 
     <%= form_with(model: @user) do |f| %>
+      <%= display_validation_errors('name','name') %>
       <div class="mb-3">
         <%= f.label :name, 'ユーザ名' %>
         <%= f.text_field :name, class: 'form-control' %>
       </div>
-
+      
+      <%= display_validation_errors('email','email') %>
       <div class="mb-3">
         <%= f.label :email, 'Eメール' %>
         <%= f.email_field :email, class: 'form-control' %>

@@ -2,6 +2,7 @@
   <div class='row'>
     <aside class='col-sm-4'>
       <%= form_with(model: @post) do |f| %>
+        <%= display_validation_errors('content','content') %>
         <div class='mb-3'>
           <%= f.text_area :content, class: 'form-control', rows: 5 %>
         </div>
