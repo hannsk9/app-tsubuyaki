@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   
   def index
     # messageをしているユーザのidを取得し自分のidを削除することで、DM相手の一覧を表示
-    @message_user_ids = Message.where(partner_id: current_user.id).or(Message.where(user_id: current_user.id)).distinct.pluck(:user_id)
+    @message_user_ids = Message.where(partner_id: current_user.id).or(Message.where(user_id: current_user.id)).distinct.pluck(:partner_id)
     @message_user_ids.delete(current_user.id)
   end
 
