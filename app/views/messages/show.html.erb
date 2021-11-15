@@ -24,6 +24,11 @@
               <div>
                 <p><%= message.content %></p>
               </div>
+              <div>
+                <% if current_user == message.user %>
+                  <%= link_to "削除", message, method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'btn btn-danger btn-sm' %>
+                <% end %>
+              </div>
             </div>
           </li>
         <% end %>
