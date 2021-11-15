@@ -16,8 +16,8 @@ class PostsController < ApplicationController
       redirect_to root_url
     else
       @pagy, @posts = pagy(current_user.feed_posts.order(id: :desc))
-      flash.now[:danger] = "つぶやきの投稿に失敗しました。"
-      render 'toppages/index'
+      flash[:danger] = "つぶやきの投稿に失敗しました。"
+      redirect_back(fallback_location: root_path)
     end
   end
 
