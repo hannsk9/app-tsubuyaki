@@ -17,6 +17,7 @@ class PostsController < ApplicationController
     else
       @pagy, @posts = pagy(current_user.feed_posts.order(id: :desc))
       flash[:danger] = "つぶやきの投稿に失敗しました。"
+      flash[:warning] = @post.errors.full_messages
       redirect_back(fallback_location: root_path)
     end
   end

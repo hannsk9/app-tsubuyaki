@@ -22,8 +22,9 @@ class UsersController < ApplicationController
       flash[:success] = "ユーザを登録しました。"
       redirect_to @user
     else
-      flash.now[:danger] = "ユーザの登録に失敗しました。"
-      render :new
+      flash[:danger] = "ユーザの登録に失敗しました。"
+      flash[:warning] = @user.errors.full_messages
+      redirect_to signup_path
     end
   end
   
